@@ -1,73 +1,87 @@
 ﻿@model ChampsSpeciaux.Models.Travel
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml";
-  var title = "Create a Travel"; }
+    var title = "Create a Travel"; }
 
 <div class="border p-3 DivBgForm">
-  <form class="form-horizontal" method="post" asp-action="Edit">
-    <div class="row p-3 border">
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form class="form-horizontal" method="post" asp-action="Edit" enctype="multipart/form-data">
+        <div class="row p-3 border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-      <div class="col-12 border-bottom">
-        <h2 class="text-primary">@title</h2>
-      </div>
-
-      <div class="col-8  pt-4">
-
-        <div class="form-group row">
-          <div class="col-3">
-            <label asp-for="Name"></label>
-          </div>
-          <div class="col-8">
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-3">
-            <label asp-for="Description"></label>
-          </div>
-          <div class="col-8">
-            <input asp-for="Description" class="form-control" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-3">
-            <label asp-for="TravelImage"></label>
-          </div>
-          <div class="col-8">
-            <input asp-for="TravelImage" class="form-control" />
-            <span asp-validation-for="TravelImage" class="text-danger"></span>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-8 offset-3">
-            <div class="row">
-              <div class="col">
-                <button type="submit" class="btn btn-primary form-control">Edit</button>
-              </div>
-              <div class="col">
-                <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
-              </div>
+            <div class="col-12 border-bottom">
+                <h2 class="text-primary">@title</h2>
             </div>
-          </div>
+
+            <div class="col-8  pt-4">
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Description" class="form-control summernote"></textarea>   
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="TravelImage"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox" asp-for="TravelImage" class="form-control" />
+                        <span asp-validation-for="TravelImage" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-3">
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary form-control"><i class="fas fa-edit"></i>&nbsp;Edit</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control"><i class="fas fa-arrow-left"></i> &nbsp;Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-4 text-center pt-4">
+                @if (Model.TravelImage != "")
+                {
+                    <img src="@AppConstants.ImagePathView@Model.TravelImage" id="TravelImage" width="100" style="border-radius:5px; border:1px solid #bbb9b9" />
+                }
+                else
+                {
+                    <img src="~/images/TravelGeneric.png" width="100" style="border-radius:5px; border:1px solid #bbb9b9" />
+                }
+                
+            </div>
+
         </div>
-      </div>
-
-
-
-      <div class="col-4 text-center pt-4">
-        <img src="~/images/TravelGeneric.png" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
-      </div>
-
-    </div>
-  </form>
+    </form>
 </div>
 
 @section Scripts{
-  <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+            $(document).ready(function () {
+                $('.summernote').summernote();
+            });
+    </script>
 }
