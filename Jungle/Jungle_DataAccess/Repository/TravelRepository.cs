@@ -17,7 +17,7 @@ namespace Jungle_DataAccess.Repository
       _db = db;
     }
 
-    public void Update(Travel travel)
+        public async Task UpdateAsync(Travel travel)
     {
       _db.Update(travel);
 

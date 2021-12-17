@@ -16,7 +16,7 @@ namespace Jungle_DataAccess.Repository
         {
             _db = db;
         }
-        public void Update(Option option)
+        public async Task UpdateAsync(Option option)
         {
             _db.Update(option);
         }

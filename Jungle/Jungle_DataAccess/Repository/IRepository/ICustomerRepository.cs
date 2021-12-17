@@ -9,6 +9,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
-        void Update(Customer customer);
+        Task UpdateAsync(Customer customer);
     }
 }

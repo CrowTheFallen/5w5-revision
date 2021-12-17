@@ -9,6 +9,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 {
   public interface IDestinationRepository : IRepository<Destination>
   {
-    void Update(Destination destination);
+    Task UpdateAsync(Destination destination);
   }
 }

@@ -32,7 +32,10 @@ namespace Jungle
                    Configuration.GetConnectionString("DefaultConnection")
                    ));
 
-      services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                  .AddEntityFrameworkStores<JungleDbContext>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddControllersWithViews();
     }
 
@@ -53,7 +56,7 @@ namespace Jungle
       app.UseStaticFiles();
 
       app.UseRouting();
-
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
@@ -77,6 +80,7 @@ namespace Jungle
         endpoints.MapControllerRoute(
                   name: "default",
                   pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+          endpoints.MapRazorPages();
       });
     }
   }

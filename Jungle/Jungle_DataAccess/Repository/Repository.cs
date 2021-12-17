@@ -21,17 +21,17 @@ namespace Jungle_DataAccess.Repository
       this.dbSet = _db.Set<T>();
     }
 
-    public void Add(T entity)
+    public async Task AddAsync(T entity)
     {
-      dbSet.Add(entity);
+      await dbSet.AddAsync(entity);
     }
 
-    public T Get(int id)
+    public async Task<T> GetAsync(int id)
     {
-      return dbSet.Find(id);
+      return await dbSet.FindAsync(id);
     }
 
-    public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null, bool isTracking = true)
+    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null, bool isTracking = true)
     {
       IQueryable<T> query = dbSet;
 
@@ -50,12 +50,13 @@ namespace Jungle_DataAccess.Repository
 
       if (orderBy != null)
       {
+         
         return orderBy(query).ToList();
       }
       return query.ToList();
     }
 
-    public T FirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = null, bool isTracking = true)
+    public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null, bool isTracking = true)
     {
       IQueryable<T> query = dbSet;
 
@@ -76,20 +77,22 @@ namespace Jungle_DataAccess.Repository
       return query.FirstOrDefault();
     }
 
-    public void Remove(int id)
+    public async Task RemoveAsync(int id)
     {
       T entity = dbSet.Find(id);
-      Remove(entity);
+      await RemoveAsync(entity);
     }
 
-    public void Remove(T entity)
-    {
-      dbSet.Remove(entity);
+    public async Task RemoveAsync(T entity)
+    {   
+       
+        dbSet.Remove(entity);
+
     }
 
-    public void RemoveRange(IEnumerable<T> entity)
-    {
-      dbSet.RemoveRange(entity);
+        public async Task RemoveRangeAsync(IEnumerable<T> entity)
+        {
+            dbSet.RemoveRange(entity);
+        }
     }
-  }
 }

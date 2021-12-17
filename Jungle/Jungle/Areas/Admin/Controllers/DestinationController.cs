@@ -18,14 +18,14 @@ namespace Jungle.Areas.Admin.Controllers
       _unitOfWork = unitOfWork;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-      IEnumerable<Destination> DestinationList = _unitOfWork.Destination.GetAll();
+      IEnumerable<Destination> DestinationList = await _unitOfWork.Destination.GetAllAsync();
       
       return View(DestinationList);
     }
 
-    public IActionResult Upsert(int? id)
+    public async Task<IActionResult> Upsert(int? id)
     {
       Destination destination = new Destination();
       if (id == null)
@@ -34,7 +34,7 @@ namespace Jungle.Areas.Admin.Controllers
         return View(destination);
       }
       // Update
-      destination = _unitOfWork.Destination.Get(id.GetValueOrDefault());
+      destination = await _unitOfWork.Destination.GetAsync(id.GetValueOrDefault());
       if (destination == null)
       {
         return NotFound();
@@ -44,20 +44,20 @@ namespace Jungle.Areas.Admin.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public  IActionResult Upsert(Destination destination)
+    public async Task<IActionResult> Upsert(Destination destination)
     {
       if (ModelState.IsValid)
       {
         if (destination.Id == 0)
         {
-         _unitOfWork.Destination.Add(destination);
+        await _unitOfWork.Destination.AddAsync(destination);
 
         }
         else
         {
-          _unitOfWork.Destination.Update(destination);
+         await _unitOfWork.Destination.UpdateAsync(destination);
         }
-        _unitOfWork.Save();
+       await _unitOfWork.SaveAsync();
         return RedirectToAction(nameof(Index));
       }
       return View(destination);

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Jungle_DataAccess.Repository.IRepository
 {
   // Ce doit être une interface générique <T> (T pour s'adapter au type d'objet classe ) publique
-  public interface IRepository<T> where T : class
+  public  interface IRepository<T> where T : class
   {
     // Les méthodes devant être implantées dans les repositories
 
-    T Get(int id);
+    Task<T> GetAsync(int id);
 
-    IEnumerable<T> GetAll(
+    Task<IEnumerable<T>> GetAllAsync(
       Expression<Func<T, bool>> filter = null,
       Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
       string includeProperties = null,
@@ -23,19 +23,19 @@ namespace Jungle_DataAccess.Repository.IRepository
 
 
     // Retourne le 1er seulement
-    T FirstOrDefault(
+    Task<T> FirstOrDefaultAsync(
       Expression<Func<T, bool>> filter = null,
       string includeProperties = null,
       bool isTracking = true
       );
 
-    void Add(T entity);
+    Task AddAsync(T entity);
 
-    void Remove(int id);
+    Task RemoveAsync(int id);
 
-    void Remove(T entity);
+    Task RemoveAsync(T entity);
 
-    void RemoveRange(IEnumerable<T> entity);
+    Task RemoveRangeAsync(IEnumerable<T> entity);
 
   }
 

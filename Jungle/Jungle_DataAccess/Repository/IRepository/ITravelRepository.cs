@@ -9,6 +9,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 {
   public interface ITravelRepository : IRepository<Travel>
   {
-    void Update(Travel travel);
+    Task UpdateAsync(Travel travel);
   }
 }

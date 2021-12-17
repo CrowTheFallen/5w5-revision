@@ -1,4 +1,5 @@
 ﻿using Jungle_Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Jungle_DataAccess
 {
-  public class JungleDbContext:DbContext
-  {
+  public class JungleDbContext: IdentityDbContext
+    {
     public JungleDbContext(DbContextOptions<JungleDbContext> options) : base(options)
     {
     
@@ -27,5 +28,6 @@ namespace Jungle_DataAccess
 
     public DbSet<Customer> Customers { get; set; }
 
+    public DbSet<ApplicationUser> ApplicationUser { get; set; }
   }
 }

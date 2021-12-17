@@ -17,7 +17,7 @@ namespace Jungle_DataAccess.Repository
       _db = db;
     }
 
-    public void Update(Guide guide)
+        public async Task UpdateAsync(Guide guide)
     {
       _db.Update(guide);
 

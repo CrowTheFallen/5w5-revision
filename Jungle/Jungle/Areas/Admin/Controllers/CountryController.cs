@@ -18,14 +18,14 @@ namespace Jungle.Areas.Admin.Controllers
       _unitOfWork = unitOfWork;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-      IEnumerable<Country> CountryList = _unitOfWork.Country.GetAll();
+      IEnumerable<Country> CountryList = await _unitOfWork.Country.GetAllAsync();
       
       return View(CountryList);
     }
 
-    public IActionResult Upsert(int? id)
+    public async Task<IActionResult> Upsert(int? id)
     {
       Country country = new Country();
       if (id == null)
@@ -34,7 +34,7 @@ namespace Jungle.Areas.Admin.Controllers
         return View(country);
       }
       // Update
-      country = _unitOfWork.Country.Get(id.GetValueOrDefault());
+      country = await _unitOfWork.Country.GetAsync(id.GetValueOrDefault());
       if (country == null)
       {
         return NotFound();
@@ -44,20 +44,20 @@ namespace Jungle.Areas.Admin.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public  IActionResult Upsert(Country country)
+    public async Task<IActionResult> Upsert(Country country)
     {
       if (ModelState.IsValid)
       {
         if (country.Id == 0)
         {
-         _unitOfWork.Country.Add(country);
+        await _unitOfWork.Country.AddAsync(country);
 
         }
         else
         {
-          _unitOfWork.Country.Update(country);
+        await  _unitOfWork.Country.UpdateAsync(country);
         }
-        _unitOfWork.Save();
+       await _unitOfWork.SaveAsync();
         return RedirectToAction(nameof(Index));
       }
       return View(country);

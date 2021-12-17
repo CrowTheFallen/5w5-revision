@@ -9,6 +9,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 {
     public interface IEvaluationRepository : IRepository<Evaluation>
     {
-        void Update(Evaluation evaluation);
+        Task UpdateAsync(Evaluation evaluation);
     }
 }

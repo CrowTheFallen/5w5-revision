@@ -19,6 +19,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 
     IEvaluationRepository Evaluation { get; }
 
-    void Save();
+    Task SaveAsync();
   }
 }

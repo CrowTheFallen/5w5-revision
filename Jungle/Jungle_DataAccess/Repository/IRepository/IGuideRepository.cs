@@ -9,6 +9,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 {
   public interface IGuideRepository : IRepository<Guide>
   {
-    void Update(Guide guide);
+    Task UpdateAsync(Guide guide);
   }
 }

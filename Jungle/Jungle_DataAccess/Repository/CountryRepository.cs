@@ -17,10 +17,11 @@ namespace Jungle_DataAccess.Repository
       _db = db;
     }
 
-    public void Update(Country country)
-    {
-      _db.Update(country);
-
+        public async Task UpdateAsync(Country country)
+        {
+          
+             _db.Update(country);
+           
+        }
     }
-  }
 }

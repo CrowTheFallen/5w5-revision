@@ -9,6 +9,6 @@ namespace Jungle_DataAccess.Repository.IRepository
 {
     public interface IOptionRepository : IRepository<Option>
     {
-        void Update(Option option);
+        Task UpdateAsync(Option option);
     }
 }

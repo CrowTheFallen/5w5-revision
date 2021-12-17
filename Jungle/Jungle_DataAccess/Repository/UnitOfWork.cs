@@ -21,9 +21,9 @@ namespace Jungle_DataAccess.Repository
       Travel = new TravelRepository(_db);
       Country = new CountryRepository(_db);
       Destination = new DestinationRepository(_db);
-            Option = new OptionRepository(_db);
-            Customer = new CustomerRepository(_db);
-            Evaluation = new EvaluationRepository(_db);
+      Option = new OptionRepository(_db);
+      Customer = new CustomerRepository(_db);
+      Evaluation = new EvaluationRepository(_db);
     }
 
     public ITravelRepository Author => throw new NotImplementedException();
@@ -48,9 +48,9 @@ namespace Jungle_DataAccess.Repository
       _db.Dispose();
     }
 
-    public void Save()
+    public async Task SaveAsync()
     {
-      _db.SaveChanges();
+        await _db.SaveChangesAsync();
     }
   }
 }
